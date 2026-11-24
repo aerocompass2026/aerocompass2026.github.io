@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AeroCompass Training Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: a friendly, clear company training hub for new staff, confident and calm.
+   IDEA: an airline departures board: the full training video with its chapters listed like flights.
+   PICTURE: the full-series player with its chapter board is the first-screen picture.
+   COLOUR and TYPE: AeroCompass navy and signal red on warm white, Poppins headings, Inter text, Cairo for Arabic.
+   LAYOUT: sticky top bar, then a player band, a library grid with filters, SOP accordions, checklists and resources. */
+:root{color-scheme:light dark;
+--bg:light-dark(#F7F6F2,#0E1626);--panel:light-dark(#FFFFFF,#16213A);--panel2:light-dark(#EEF1F6,#1C2946);
+--ink:light-dark(#14254A,#EEF2F8);--soft:light-dark(#4A5568,#B7C3D8);--line:light-dark(#DCE1EA,#2A3A5E);
+--navy:#14254A;--red:light-dark(#C8161E,#FF6B72);--redbg:#C8161E;--ok:light-dark(#107C41,#5FD38D)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,Arial,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Poppins,Arial,sans-serif;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,4.4vw,50px);font-weight:800}
+h2{font-size:clamp(26px,3vw,38px);font-weight:700}
+h3{font-size:19px;font-weight:700}
+p{margin:0}
+a{color:var(--red)}
+.ar{font-family:Cairo,Tahoma,sans-serif;direction:rtl;font-weight:700}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+.muted{color:var(--soft)}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff}
+.top .wrap{display:flex;align-items:center;gap:20px;padding:10px max(5vw,16px);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.brand img{height:40px;background:#FBFBF8;border-radius:8px;padding:4px 8px}
+.brand b{font:700 16px Poppins,Arial,sans-serif}
+.nav{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+.nav a{flex:none;color:#DCE4F2;text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:600;font-size:15px;white-space:nowrap;min-height:44px;display:flex;align-items:center}
+.nav a:hover{background:#ffffff1f;color:#fff}
+.prog{display:flex;align-items:center;gap:10px;font-size:14px;color:#DCE4F2}
+.bar{width:120px;height:8px;border-radius:8px;background:#ffffff2e;overflow:hidden}
+.bar i{display:block;height:100%;background:#FF6B72;width:0;transition:width .4s}
+/* hero / player */
+.hero{background:var(--navy);color:#fff;padding-top:24px}
+.hero .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:clamp(20px,3vw,44px);align-items:center}
+.hero h1{color:#fff}
+.hero .lead{color:#C9D3E3;font-size:17px;margin-top:14px;max-width:46ch}
+.hero .ar{color:#FF9AA0;font-size:20px;margin-top:10px}
+.steps{display:grid;gap:10px;margin-top:24px}
+.stp{display:flex;gap:14px;align-items:center;background:#ffffff12;border-radius:12px;padding:12px 14px;color:#fff;text-decoration:none}
+.stp b{font:800 22px Poppins;color:#FF6B72;width:34px}
+.stp span{font-size:15px;color:#C9D3E3}
+.stp strong{display:block;color:#fff;font-size:16px}
+.player{background:#0A1222;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px #00000055}
+.player video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.pbar{display:flex;align-items:center;gap:12px;padding:12px 16px;flex-wrap:wrap}
+.pbar .t{flex:1;min-width:180px}
+.pbar .t small{color:#FF9AA0;font-weight:600;font-size:13px}
+.pbar .t div{font:700 17px Poppins;color:#fff}
+.btn{border:0;border-radius:10px;min-height:44px;padding:10px 16px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
+.btn.red{background:var(--redbg);color:#fff}
+.btn.ghost{background:#ffffff1a;color:#fff}
+.btn.line{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.done{background:#107C41;color:#fff}
+.vfb{margin:10px 0 0;font-size:14px}.sopv .vfb{grid-column:2;margin-top:-12px}@media(max-width:900px){.sopv .vfb{grid-column:1}}.vfb a{font-weight:600}
+/* about */
+.ab1{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(20px,3vw,44px);align-items:center}
+.ab1 img{width:100%;border-radius:16px;display:block;box-shadow:0 20px 44px #14254a26}
+.kick{font:700 13px Poppins;letter-spacing:.14em;color:var(--red);margin:0 0 8px}
+.ab3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.ab4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:16px}
+.abc{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--redbg);border-radius:14px;padding:18px 20px}
+.abc h3{font-size:18px;margin-bottom:8px}.abc p,.abc ul{margin:0;color:var(--soft);font-size:15px}.abc ul{padding-left:18px;display:grid;gap:3px}
+.abh{margin-top:40px;font-size:clamp(20px,2.2vw,26px)}
+.steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:16px;counter-reset:st}
+.steps div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.steps b{display:block;font:800 15px Poppins;color:var(--ink)}.steps b::before{counter-increment:st;content:"0" counter(st) "  ";color:var(--red)}
+.steps span{font-size:14px;color:var(--soft)}
+@media(max-width:1000px){.ab4,.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.ab3{grid-template-columns:1fr}}
+@media(max-width:900px){.ab1{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* library */
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{border:1.5px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:8px 14px;min-height:44px;font-weight:600;font-size:14px}
+.chip[aria-pressed=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+input[type=search]{font:16px Inter,Arial,sans-serif;border:1.5px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:10px 14px;min-height:44px;width:220px}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{background:var(--panel);border-radius:14px;overflow:hidden;border:1px solid var(--line);display:flex;flex-direction:column;text-align:left;padding:0;color:var(--ink)}
+.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px #14254a22}
+.thumb{position:relative;aspect-ratio:16/9;background:#0A1222}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .no{position:absolute;left:10px;top:10px;background:var(--redbg);color:#fff;font:700 13px Poppins;padding:4px 10px;border-radius:999px}
+.thumb .dur{position:absolute;right:10px;bottom:10px;background:#000000b3;color:#fff;font-size:13px;padding:2px 8px;border-radius:6px}
+.thumb .ok{position:absolute;right:10px;top:10px;background:#107C41;color:#fff;font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px}
+.card .bd{padding:14px 16px 16px;display:grid;gap:6px}
+.card .g{font-size:13px;color:var(--red);font-weight:600}
+.card p{font-size:14px;color:var(--soft)}
+.empty{padding:30px;text-align:center;color:var(--soft);grid-column:1/-1}
+/* SOPs */
+.alt{background:var(--panel2)}
+.intro{max-width:70ch;margin-top:10px;color:var(--soft)}
+.rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:24px 0}
+.rule{background:var(--panel);border-radius:12px;padding:16px;border:1px solid var(--line)}
+.rule b{font:800 24px Poppins;color:var(--red)}
+.rule h3{margin:4px 0 6px}
+.rule p{font-size:14px;color:var(--soft)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+summary{cursor:pointer;padding:16px 18px;display:flex;gap:14px;align-items:center;list-style:none;min-height:56px}
+summary::-webkit-details-marker{display:none}
+summary .code{font:700 14px Poppins;color:#fff;background:var(--navy);border-radius:8px;padding:4px 10px;white-space:nowrap}
+summary .nm{font:700 17px Poppins;flex:1}
+summary .gl{font-size:14px;color:var(--soft);display:block;font-family:Inter;font-weight:400}
+summary::after{content:"+";font:700 24px Poppins;color:var(--red)}
+details[open] summary::after{content:"−"}
+.sopbody{padding:0 22px 18px 22px}
+.sopbody ol{margin:0;padding-left:22px;display:grid;gap:8px}
+.sopbody li b{color:var(--ink)}
+.who{color:var(--red);font-size:13px;font-weight:600;white-space:nowrap}
+.sopbody .sub{font:700 15px Poppins;margin:14px 0 8px}
+/* tables */
+.tw{background:var(--panel);border-radius:12px;border:1px solid var(--line);overflow:hidden;margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--navy);color:#fff;font-weight:600;font-size:14px}
+tr:last-child td{border-bottom:0}
+td.c,th.c{text-align:center}
+.y{color:var(--ok);font-weight:700}
+.n{color:var(--soft)}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.kpi b{font:800 clamp(22px,2.4vw,30px) Poppins;color:var(--red);display:block;white-space:nowrap}
+.kpi span{font-size:14px;color:var(--soft)}
+/* resources */
+.res{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.rc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
+.rc .btn{justify-self:start}
+.note{font-size:14px;color:var(--soft)}
+footer{background:var(--navy);color:#C9D3E3;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:#fff}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#14254A;color:#fff;padding:12px 18px;border-radius:10px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .3s;z-index:50}
+.toast.on{opacity:1}
+@media(max-width:900px){.hero .grid{grid-template-columns:1fr}.hero .player{order:-1}.rules,.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.res,.two{grid-template-columns:1fr}.prog{display:none}}
+@media(max-width:600px){table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 12px;padding-inline-start:9em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:8.5em;margin-inline-start:-8.5em;white-space:normal;color:var(--soft);font-weight:600}.stack td:empty{display:none}input[type=search]{width:100%}.nav{width:100%;margin-left:0}}
+.scroll{overflow-x:auto}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card:hover{transform:none}}
+
+.tl{position:relative;height:10px;background:#ffffff26;border-radius:6px;margin:0 16px;cursor:pointer;touch-action:none}
+.tl .fill{position:absolute;left:0;top:0;bottom:0;background:#FF6B72;border-radius:6px;width:0}
+.tl .mk{position:absolute;top:-3px;width:2px;height:16px;background:#0A1222}
+.tlrow{display:flex;justify-content:space-between;color:#C9D3E3;font-size:13px;padding:6px 16px 0}
+.chap{display:grid;gap:2px;max-height:none;padding:6px 8px 12px}
+.ch{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:10px;align-items:center;background:transparent;border:0;color:#DCE4F2;text-align:left;padding:8px 10px;border-radius:8px;min-height:44px;font-size:14px}
+.ch:hover{background:#ffffff14}
+.ch.on{background:#C8161E;color:#fff}
+.ch .tm{font-variant-numeric:tabular-nums;color:#FF9AA0;font-weight:600}
+.ch.on .tm{color:#fff}
+.ch .w{font-size:12px;color:#5FD38D;font-weight:600}
+.ch.on .w{color:#fff}
+.full{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);background:#0A1222;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px #00000055}
+.full .side{border-left:1px solid #ffffff1a;display:flex;flex-direction:column;min-height:0}
+.full .side h3{color:#fff;padding:16px 18px 6px;font-size:16px}
+.chapwrap{overflow-y:auto;flex:1;min-height:0}
+@media(max-width:900px){.full{grid-template-columns:1fr}.full .side{border-left:0;border-top:1px solid #ffffff1a}.chapwrap{max-height:340px}}
+.sopv{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(20px,3vw,44px);align-items:center}
+.sopplayer{border-radius:16px;overflow:hidden;background:#0A1222;box-shadow:0 20px 44px #14254a33}
+.soplist{margin:16px 0 0;padding-left:20px;color:var(--soft);display:grid;gap:4px}
+@media(max-width:900px){.sopv{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="#start"><img src="media/logo.png" alt="AeroCompass"><b>Training Hub</b></a>
+<nav class="nav" aria-label="Sections"><a href="#start">Start</a><a href="#full">Full video</a><a href="#sop">SOP video</a><a href="#roles">Roles</a><a href="#finance">Finance</a><a href="#about">About us</a></nav>
+<div class="prog" aria-live="polite"><div class="bar"><i id="barFill"></i></div><span id="progTxt">0 of 13 watched</span></div>
+</div>
+</header>
+
+<section class="hero band" id="start">
+<div class="wrap">
+<h1>Welcome aboard. Your training starts here.</h1>
+<p class="ar">مرحباً بك في أيرو كومباس — رحلتك التدريبية تبدأ هنا</p>
+<p class="lead" style="max-width:70ch">Learn the Microsoft 365 tools AeroCompass uses every day. Watch the full training video below (13 minutes 43 seconds), or jump to any chapter. English voice with Arabic captions.</p>
+<div class="full" id="full" style="margin-top:28px">
+<div>
+<video id="vid" controls playsinline preload="metadata" poster="media/p01.jpg" style="display:block;width:100%;aspect-ratio:16/9;background:#000"><source id="vsrc" src="media/v01.mp4" type="video/mp4">Your browser cannot play this video.</video>
+<p class="vfb" style="margin:6px 0 0"><a id="vdirect" href="media/v01.mp4" data-v="v01" target="_blank" rel="noopener" style="color:#FF9AA0">Video not playing? Open this chapter directly</a></p>
+<div class="tlrow"><span id="tlNow">00:00</span><span>Full training video · 13:43</span></div>
+<div class="tl" id="tl" role="slider" aria-label="Full video position" aria-valuemin="0" aria-valuemax="823" aria-valuenow="0" tabindex="0"><div class="fill" id="tlFill"></div></div>
+<div class="pbar">
+<div class="t"><small id="nowNo">Chapter 1 of 13 · Teams</small><div id="nowTitle">Create a team</div></div>
+<button class="btn ghost" id="prevBtn" aria-label="Previous chapter">◀ Prev</button>
+<button class="btn ghost" id="nextBtn" aria-label="Next chapter">Next ▶</button>
+<button class="btn red" id="doneBtn">Mark as watched</button>
+</div>
+</div>
+<div class="side"><h3>Chapters</h3><div class="chapwrap"><div class="chap" id="chap"></div></div></div>
+</div>
+</div>
+</section>
+
+<section class="band alt" id="sop">
+<div class="wrap">
+<div class="sopv">
+<div><h2>Freight Division SOP</h2>
+<p class="intro">How every shipment is handled, from quotation to delivery: principles, the six stages, risk and insurance, emergencies and the escalation matrix. About 4 minutes, English voice with Arabic captions.</p>
+<p class="ar" style="color:var(--red);font-size:19px;margin-top:10px">إجراءات التشغيل القياسية لقسم الشحن</p>
+<ul class="soplist"><li>General principles</li><li>Pre-shipment and quoting</li><li>Booking and documentation</li><li>Origin, main carriage and destination</li><li>Post-shipment, risk and insurance</li><li>Emergencies and escalation matrix</li></ul>
+</div>
+<div class="sopplayer"><video controls playsinline preload="metadata" poster="media/sop.jpg" style="display:block;width:100%;aspect-ratio:16/9;background:#000"><source src="media/sop.mp4" type="video/mp4">Your browser cannot play this video.</video></div>
+<p class="vfb"><a href="media/sop.mp4" data-v="sop" target="_blank" rel="noopener">Video not playing? Open it directly</a></p>
+</div>
+</div>
+</section>
+
+<section class="band" id="roles">
+<div class="wrap">
+<div class="sopv">
+<div><p style="font:700 13px Poppins;letter-spacing:.14em;color:var(--red);margin:0 0 8px">HR &amp; COMPANY POLICY</p>
+<h2>Employee Roles &amp; Responsibilities</h2>
+<p class="intro">The new organisation structure: who reports to whom, what each role is responsible for, working hours, pricing rules, the RFQ timeline and role-adherence penalties. About 5 minutes, English voice with Arabic captions.</p>
+<p class="ar" style="color:var(--red);font-size:19px;margin-top:10px">أدوار ومسؤوليات الموظفين</p>
+<ul class="soplist"><li>Organisation chart and reporting lines</li><li>Management, sales and operations roles</li><li>Support teams and key dates</li><li>Working hours and Jibble attendance</li><li>Pricing rules and RFQ timeline</li><li>Role adherence and penalties</li></ul>
+</div>
+<div class="sopplayer"><video controls playsinline preload="metadata" poster="media/roles.jpg" style="display:block;width:100%;aspect-ratio:16/9;background:#000"><source src="media/roles.mp4" type="video/mp4">Your browser cannot play this video.</video></div>
+<p class="vfb"><a href="media/roles.mp4" data-v="roles" target="_blank" rel="noopener">Video not playing? Open it directly</a></p>
+</div>
+</div>
+</section>
+
+<section class="band alt" id="finance">
+<div class="wrap">
+<div class="sopv">
+<div><p style="font:700 13px Poppins;letter-spacing:.14em;color:var(--red);margin:0 0 8px">FINANCE &amp; ACCOUNTS</p>
+<h2>Accountant SOP</h2>
+<p class="intro">How the Accountant manages payables, receivables, monthly expenses, payroll, daily collections and quote costing, plus the reporting line, escalation matrix and confidentiality rules (ACWF-FIN-SOP-01). About 3½ minutes, English voice with Arabic captions.</p>
+<p class="ar" style="color:var(--red);font-size:19px;margin-top:10px">إجراءات التشغيل القياسية للمحاسب</p>
+<ul class="soplist"><li>Reporting line and direct escalation</li><li>Accounts payable and receivable</li><li>Monthly expenses and payroll</li><li>Daily collection and ageing report</li><li>Quote cost calculation</li><li>Escalation matrix and confidentiality</li></ul>
+</div>
+<div class="sopplayer"><video controls playsinline preload="metadata" poster="media/acc.jpg" style="display:block;width:100%;aspect-ratio:16/9;background:#000"><source src="media/acc.mp4" type="video/mp4">Your browser cannot play this video.</video></div>
+<p class="vfb"><a href="media/acc.mp4" data-v="acc" target="_blank" rel="noopener">Video not playing? Open it directly</a></p>
+</div>
+</div>
+</section>
+
+<section class="band" id="about">
+<div class="wrap">
+<div class="ab1">
+<div><p class="kick">ABOUT THE COMPANY</p>
+<h2>AeroCompass Worldwide Freightlines</h2>
+<p class="ar" style="color:var(--red);font-size:19px;margin-top:8px">أيرو كومباس للشحن العالمي — شركة لوجستية سعودية</p>
+<p class="intro">A Saudi freight forwarding, warehousing and cargo logistics company with its head office in Riyadh and branches in Jeddah (Gulf Center) and Dammam. AeroCompass brings together the experience of its parent groups, Art Map Engineering Consultants, Flydana and WAJA, in one dedicated freight company that supports the goals of Saudi Vision 2030.</p>
+<p class="intro">We specialise in high-security, highly regulated and time-sensitive cargo, from everyday freight to defence logistics.</p>
+<div class="kpis"><div class="kpi"><b>3</b><span>Offices: Riyadh, Jeddah, Dammam</span></div><div class="kpi"><b>10+</b><span>Dedicated trailers and trucks</span></div><div class="kpi"><b>5</b><span>Vehicle types, 3 to 60 tonnes</span></div><div class="kpi"><b>2030</b><span>Aligned with Saudi Vision</span></div></div>
+</div>
+<img src="media/about.jpg" alt="AeroCompass trucks and delivery van at a warehouse" loading="lazy">
+</div>
+
+<h3 class="abh">What we do</h3>
+<div class="ab3">
+<div class="abc"><h3>Core services</h3><ul><li>Air and sea freight forwarding, import and export</li><li>Transshipment and cross-docking</li><li>Customs clearance at all major Saudi ports and borders</li><li>Warehousing and storage, dry and ambient</li><li>Domestic and international land transport</li></ul></div>
+<div class="abc"><h3>Value-added services</h3><ul><li>SABER certificate facilitation</li><li>Marine and cargo insurance</li><li>Professional packaging and crating</li></ul></div>
+<div class="abc"><h3>AeroCompass Industrial Logistics</h3><p>Our industrial and project division: project and heavy cargo, out-of-gauge (OOG) transport, container stuffing and lashing, warehousing and 3PL, terminal services, and industrial packing, for forwarders, EPC contractors and industrial customers across the Kingdom.</p></div>
+</div>
+
+<h3 class="abh">What sets us apart</h3>
+<div class="ab4">
+<div class="abc"><h3>Nationwide warehousing</h3><p>Secure warehouses being expanded across all regions of the Kingdom.</p></div>
+<div class="abc"><h3>Defence &amp; ITAR compliance</h3><p>Full ITAR compliance and close alignment with the Ministry of Defense for sensitive materials.</p></div>
+<div class="abc"><h3>IP protection</h3><p>Restricted-access workflows that protect clients' intellectual property and sensitive data.</p></div>
+<div class="abc"><h3>Our own cargo airline</h3><p>Working toward a dedicated cargo airline for faster, independent capacity.</p></div>
+</div>
+
+<h3 class="abh">How we work</h3>
+<div class="steps"><div><b>Assess</b><span>Requirements, scope and risks</span></div><div><b>Plan</b><span>Practical, commercially viable solutions</span></div><div><b>Prepare</b><span>Resources, permits and readiness</span></div><div><b>Execute</b><span>Coordinate and control operations</span></div><div><b>Monitor</b><span>Track progress and communicate</span></div><div><b>Close</b><span>Delivery, documents and commercial closure</span></div></div>
+<p class="intro" style="margin-top:14px"><b style="color:var(--ink)">Our commitment:</b> safe, reliable and professionally coordinated logistics through careful planning, transparent communication and accountability at every stage.</p>
+
+<h3 class="abh">Leadership</h3>
+<div class="ab3">
+<div class="abc"><h3>Eng. Maqubul Al Shallwi</h3><p><b style="color:var(--red)">Chairman &amp; Founder</b><br>Saudi entrepreneur with an engineering background from King Saud University, leading the company's strategic growth.</p></div>
+<div class="abc"><h3>Mr. Shamjad Shamsudeen</h3><p><b style="color:var(--red)">Chief Executive Officer</b><br>Over 14 years of logistics experience in Saudi Arabia, including leading cargo sales for major airlines.</p></div>
+<div class="abc"><h3>Mr. Aflak Ahmed</h3><p><b style="color:var(--red)">Chief Operating Officer</b><br>More than 20 years in freight forwarding, project cargo and event logistics.</p></div>
+</div>
+
+<h3 class="abh">Network &amp; partners</h3>
+<p class="intro">Trusted by clients including Shaker Group, Ta'aheel, Sinotruk, Bin Shihon Trading, WAJA and AJEX Logistic Services.</p>
+<div class="ab3">
+<div class="abc"><h3>Memberships</h3><p>JCtrans Premium Member, FIATA Individual Member, affiliated with TGA (Transport General Authority), and IATA CASS Associated Member.</p></div>
+<div class="abc"><h3>Air freight partners</h3><p>Air Algérie, Air China, Hainan Airlines, China Eastern, Himalaya Airlines, AirAsia and PIA.</p></div>
+<div class="abc"><h3>Ocean freight partners</h3><p>Bahri, Hapag-Lloyd, MSC, COSCO, ONE, Maersk and OOCL.</p></div>
+</div>
+<p class="intro" style="margin-top:18px">Website <a href="https://www.aerocompass.com.sa" target="_blank" rel="noopener">www.aerocompass.com.sa</a> · <a href="mailto:info@aerocompass.com.sa">info@aerocompass.com.sa</a></p>
+</div>
+</section>
+
+
+<footer class="band"><div class="wrap"><p><b>AeroCompass Worldwide Freightlines</b> · A Saudi Logistics Company · شركة لوجستية سعودية</p><p>Riyadh · Jeddah · Dammam · www.aerocompass.com.sa</p></div></footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+{
+const V=[
+["Create a team","Teams",72,"Create a team, add members and channels for your branch."],
+["Calling","Teams",62,"Make audio and video calls, transfer calls and use call history."],
+["Meetings","Teams",66,"Schedule and join meetings, share your screen and record."],
+["Chat & collaboration","Teams",64,"Chats, @mentions, replies in channels and reactions."],
+["Files in Teams","Teams",55,"Upload, create and co-edit files, and share links safely."],
+["Outlook email essentials","Outlook",63,"Signature, writing emails, inbox rules and out-of-office replies."],
+["Outlook calendar","Outlook",63,"New events, Scheduling Assistant, recurring meetings and sharing."],
+["OneDrive","Files & sites",63,"Upload, share with specific people, version history and recycle bin."],
+["SharePoint","Files & sites",63,"Follow a site, add shortcuts, post news and search."],
+["Excel for logistics","Office apps",63,"Tables, highlighting delays, filters and XLOOKUP for rates."],
+["Word & PowerPoint","Office apps",63,"Headings, Track Changes, Designer and export to PDF."],
+["Forms & Planner","Office apps",63,"Customer feedback forms and team task boards."],
+["Staying secure","Security",63,"Set up MFA, approve sign-ins, spot and report phishing."]];
+const START=[];let acc=0;for(const v of V){START.push(acc);acc+=v[2]}const TOTAL=acc;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=id=>document.getElementById(id);
+const MOB=(()=>{try{return matchMedia('(max-width: 900px)').matches||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)}catch(e){return false}})();const SFX='_m';
+const vurl=n=>'media/'+n+SFX+'.mp4';
+document.querySelectorAll('video source').forEach(so=>{const m=so.getAttribute('src').match(/media\/(\w+)\.mp4/);if(m&&SFX){so.src=vurl(m[1]);so.parentElement.load()}});
+document.querySelectorAll('a[data-v]').forEach(a=>a.href=vurl(a.dataset.v));
+const UA=navigator.userAgent;const BLOB=/claudeusercontent|claude\.ai/.test(location.hostname)&&(/iPhone|iPad|iPod/.test(UA)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)||(/Safari/.test(UA)&&!/Chrome|Chromium|Android|Edg|OPR/.test(UA)));
+const bc={};function blobUrl(u){if(!bc[u])bc[u]=fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob()}).then(b=>URL.createObjectURL(new Blob([b],{type:'video/mp4'}))).catch(e=>{delete bc[u];throw e});return bc[u]}
+function linkFor(v){return v.id==='vid'?$('vdirect'):v.parentElement.parentElement.querySelector('a[data-v]')||v.closest('.sopplayer').nextElementSibling.querySelector('a')}
+function useBlob(v,u){v.dataset.u=u;const a=linkFor(v);if(a)a.textContent='Loading video…';blobUrl(u).then(b=>{if(v.dataset.u!==u)return;v.src=b;v.load();if(a)a.textContent='Video not playing? Tap here to reload it'}).catch(()=>{if(a)a.textContent='Video could not load. Tap here to try again'})}
+if(BLOB){document.querySelectorAll('video').forEach(v=>{v.querySelectorAll('source').forEach(x=>x.remove());v.removeAttribute('src')});
+document.querySelectorAll('a[data-v]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const v=a.id==='vdirect'?$('vid'):a.parentElement.previousElementSibling.querySelector('video');const u=a.id==='vdirect'?vurl('v'+pad(cur+1)):vurl(a.dataset.v);delete bc[u];v.dataset.u='';useBlob(v,u)}));
+useBlob($('vid'),vurl('v01'));
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const v=en.target,n=v.dataset.n;io.unobserve(v);useBlob(v,vurl(n))}}),{rootMargin:'800px 0px'});
+[['sop','sop'],['roles','roles'],['finance','acc']].forEach(([id,n])=>{const v=document.querySelector('#'+id+' video');if(v){v.dataset.n=n;io.observe(v)}})}
+const pad=n=>String(n).padStart(2,'0');
+const mmss=t=>pad(Math.floor(t/60))+':'+pad(Math.floor(t%60));
+const vid=$('vid');
+let watched=new Set(),cur=0,group='All',pendingSeek=0,wantPlay=false;
+try{JSON.parse(localStorage.getItem('acWatched')||'[]').forEach(x=>watched.add(x))}catch(e){}
+const save=()=>{try{localStorage.setItem('acWatched',JSON.stringify([...watched]))}catch(e){}};
+const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1800)};
+function prog(){const n=watched.size;$('barFill').style.width=(n/13*100)+'%';$('progTxt').textContent=n+' of 13 watched';const d=watched.has(cur);$('doneBtn').textContent=d?'✓ Watched':'Mark as watched';$('doneBtn').className='btn '+(d?'done':'red')}
+function chapters(){$('chap').innerHTML=V.map((v,i)=>`<button class="ch${i===cur?' on':''}" data-i="${i}"><span class="tm">${mmss(START[i])}</span><span>${i+1}. ${esc(v[0])}</span><span class="w">${watched.has(i)?'✓':''}</span></button>`).join('')}
+function marks(){$('tl').insertAdjacentHTML('beforeend',START.slice(1).map(s=>`<i class="mk" style="left:${s/TOTAL*100}%"></i>`).join(''))}
+function load(i,offset,play){cur=(i+13)%13;pendingSeek=offset||0;wantPlay=!!play;const v=V[cur];
+if(BLOB){useBlob(vid,vurl('v'+pad(cur+1)))}else{$('vsrc').src=vurl('v'+pad(cur+1));}$('vdirect').href=vurl('v'+pad(cur+1));vid.poster='media/p'+pad(cur+1)+'.jpg';if(!BLOB)vid.load();
+$('nowNo').textContent='Chapter '+(cur+1)+' of 13 · '+v[1];$('nowTitle').textContent=v[0];prog();chapters();tick()}
+vid.addEventListener('loadedmetadata',()=>{if(pendingSeek>0){try{vid.currentTime=Math.min(pendingSeek,vid.duration-0.2)}catch(e){}}pendingSeek=0;if(wantPlay){const p=vid.play();if(p&&p.catch)p.catch(()=>{})}wantPlay=false});
+function tick(){const t=START[cur]+(vid.currentTime||0);$('tlFill').style.width=(t/TOTAL*100)+'%';$('tlNow').textContent=mmss(t);$('tl').setAttribute('aria-valuenow',Math.floor(t))}
+vid.addEventListener('timeupdate',tick);
+vid.addEventListener('ended',()=>{if(!watched.has(cur)){watched.add(cur);save();lib()}if(cur<12)load(cur+1,0,true);else{prog();chapters();toast(watched.size===13?'All 13 chapters watched. Well done!':'End of the training video')}});
+function seekTotal(t){t=Math.max(0,Math.min(TOTAL-0.5,t));let i=0;while(i<12&&t>=START[i+1])i++;const off=t-START[i];const playing=!vid.paused;if(i===cur){try{vid.currentTime=off}catch(e){}tick()}else load(i,off,playing)}
+const tl=$('tl');
+tl.addEventListener('pointerdown',e=>{const r=tl.getBoundingClientRect();seekTotal((e.clientX-r.left)/r.width*TOTAL)});
+tl.addEventListener('keydown',e=>{const t=START[cur]+(vid.currentTime||0);if(e.key==='ArrowRight'){seekTotal(t+10);e.preventDefault()}if(e.key==='ArrowLeft'){seekTotal(t-10);e.preventDefault()}});
+$('chap').addEventListener('click',e=>{const b=e.target.closest('.ch');if(b)load(+b.dataset.i,0,true)});
+$('prevBtn').onclick=()=>load(cur-1,0,true);$('nextBtn').onclick=()=>load(cur+1,0,true);
+$('doneBtn').onclick=()=>{if(watched.has(cur))watched.delete(cur);else{watched.add(cur);toast('Chapter '+(cur+1)+' marked as watched')}save();prog();chapters();lib()};
+const groups=['All',...new Set(V.map(v=>v[1]))];
+function lib(){}
+marks();chapters();lib();prog();tick();
+}
+</script>
+</body>
+</html>
