@@ -171,6 +171,18 @@ footer b{color:#fff}
 .sopplayer{border-radius:16px;overflow:hidden;background:#0A1222;box-shadow:0 20px 44px #14254a33}
 .soplist{margin:16px 0 0;padding-left:20px;color:var(--soft);display:grid;gap:4px}
 @media(max-width:900px){.sopv{grid-template-columns:1fr}}
+.lang{border:1.5px solid #ffffff55;background:transparent;color:#fff;border-radius:999px;padding:6px 14px;min-height:40px;font:700 15px Cairo,Inter,sans-serif;flex:none}
+.lang:hover{background:#ffffff1f}
+[dir=rtl] body,[dir=rtl] h1,[dir=rtl] h2,[dir=rtl] h3,[dir=rtl] .pbar .t div,[dir=rtl] .nav a,[dir=rtl] .kick,[dir=rtl] .brand b{font-family:Cairo,Tahoma,sans-serif}
+[dir=rtl] p.ar{display:none}
+html:not([dir=rtl]) .ar{display:none}
+[dir=rtl] footer span.ar{display:none}
+[dir=rtl] .nav{margin-left:0;margin-right:auto}
+[dir=rtl] .full .side{border-left:0;border-right:1px solid #ffffff1a}
+[dir=rtl] .soplist,[dir=rtl] .abc ul{padding-left:0;padding-right:20px}
+[dir=rtl] .ch{text-align:right}
+.tl,.tlrow{direction:ltr}
+[dir=rtl] .steps b::before{content:"0" counter(st) "  "}
 </style>
 </head>
 <body>
@@ -178,6 +190,7 @@ footer b{color:#fff}
 <div class="wrap">
 <a class="brand" href="#start"><img src="logo.png" alt="AeroCompass"><b>Training Hub</b></a>
 <nav class="nav" aria-label="Sections"><a href="#start">Start</a><a href="#full">Full video</a><a href="#sop">SOP video</a><a href="#roles">Roles</a><a href="#finance">Finance</a><a href="#about">About us</a></nav>
+<button class="lang" id="langBtn" lang="ar" aria-label="Switch language">العربية</button>
 <div class="prog" aria-live="polite"><div class="bar"><i id="barFill"></i></div><span id="progTxt">0 of 13 watched</span></div>
 </div>
 </header>
@@ -186,12 +199,12 @@ footer b{color:#fff}
 <div class="wrap">
 <h1>Welcome aboard. Your training starts here.</h1>
 <p class="ar">مرحباً بك في أيرو كومباس — رحلتك التدريبية تبدأ هنا</p>
-<p class="lead" style="max-width:70ch">Learn the Microsoft 365 tools AeroCompass uses every day. Watch the full training video below (13 minutes 43 seconds), or jump to any chapter. English voice with Arabic captions.</p>
+<p class="lead" style="max-width:70ch">Learn the Microsoft 365 tools AeroCompass uses every day. Watch the full training video below (13 minutes 43 seconds), or jump to any chapter. English voice-over.</p>
 <div class="full" id="full" style="margin-top:28px">
 <div>
 <video id="vid" controls playsinline preload="metadata" poster="p01.jpg" style="display:block;width:100%;aspect-ratio:16/9;background:#000"><source id="vsrc" src="v01_m.mp4" type="video/mp4">Your browser cannot play this video.</video>
 <p class="vfb" style="margin:6px 0 0"><a id="vdirect" href="v01_m.mp4" data-v="v01" target="_blank" rel="noopener" style="color:#FF9AA0">Video not playing? Open this chapter directly</a></p>
-<div class="tlrow"><span id="tlNow">00:00</span><span>Full training video · 13:43</span></div>
+<div class="tlrow"><span id="tlNow">00:00</span><span id="tlTot">Full training video · 13:43</span></div>
 <div class="tl" id="tl" role="slider" aria-label="Full video position" aria-valuemin="0" aria-valuemax="823" aria-valuenow="0" tabindex="0"><div class="fill" id="tlFill"></div></div>
 <div class="pbar">
 <div class="t"><small id="nowNo">Chapter 1 of 13 · Teams</small><div id="nowTitle">Create a team</div></div>
@@ -209,7 +222,7 @@ footer b{color:#fff}
 <div class="wrap">
 <div class="sopv">
 <div><h2>Freight Division SOP</h2>
-<p class="intro">How every shipment is handled, from quotation to delivery: principles, the six stages, risk and insurance, emergencies and the escalation matrix. About 4 minutes, English voice with Arabic captions.</p>
+<p class="intro">How every shipment is handled, from quotation to delivery: principles, the six stages, risk and insurance, emergencies and the escalation matrix. About 4 minutes, English voice-over.</p>
 <p class="ar" style="color:var(--red);font-size:19px;margin-top:10px">إجراءات التشغيل القياسية لقسم الشحن</p>
 <ul class="soplist"><li>General principles</li><li>Pre-shipment and quoting</li><li>Booking and documentation</li><li>Origin, main carriage and destination</li><li>Post-shipment, risk and insurance</li><li>Emergencies and escalation matrix</li></ul>
 </div>
@@ -224,7 +237,7 @@ footer b{color:#fff}
 <div class="sopv">
 <div><p style="font:700 13px Poppins;letter-spacing:.14em;color:var(--red);margin:0 0 8px">HR &amp; COMPANY POLICY</p>
 <h2>Employee Roles &amp; Responsibilities</h2>
-<p class="intro">The new organisation structure: who reports to whom, what each role is responsible for, working hours, pricing rules, the RFQ timeline and role-adherence penalties. About 5 minutes, English voice with Arabic captions.</p>
+<p class="intro">The new organisation structure: who reports to whom, what each role is responsible for, working hours, pricing rules, the RFQ timeline and role-adherence penalties. About 5 minutes, English voice-over.</p>
 <p class="ar" style="color:var(--red);font-size:19px;margin-top:10px">أدوار ومسؤوليات الموظفين</p>
 <ul class="soplist"><li>Organisation chart and reporting lines</li><li>Management, sales and operations roles</li><li>Support teams and key dates</li><li>Working hours and Jibble attendance</li><li>Pricing rules and RFQ timeline</li><li>Role adherence and penalties</li></ul>
 </div>
@@ -239,7 +252,7 @@ footer b{color:#fff}
 <div class="sopv">
 <div><p style="font:700 13px Poppins;letter-spacing:.14em;color:var(--red);margin:0 0 8px">FINANCE &amp; ACCOUNTS</p>
 <h2>Accountant SOP</h2>
-<p class="intro">How the Accountant manages payables, receivables, monthly expenses, payroll, daily collections and quote costing, plus the reporting line, escalation matrix and confidentiality rules (ACWF-FIN-SOP-01). About 3½ minutes, English voice with Arabic captions.</p>
+<p class="intro">How the Accountant manages payables, receivables, monthly expenses, payroll, daily collections and quote costing, plus the reporting line, escalation matrix and confidentiality rules (ACWF-FIN-SOP-01). About 3½ minutes, English voice-over.</p>
 <p class="ar" style="color:var(--red);font-size:19px;margin-top:10px">إجراءات التشغيل القياسية للمحاسب</p>
 <ul class="soplist"><li>Reporting line and direct escalation</li><li>Accounts payable and receivable</li><li>Monthly expenses and payroll</li><li>Daily collection and ageing report</li><li>Quote cost calculation</li><li>Escalation matrix and confidentiality</li></ul>
 </div>
@@ -300,7 +313,7 @@ footer b{color:#fff}
 </section>
 
 
-<footer class="band"><div class="wrap"><p><b>AeroCompass Worldwide Freightlines</b> · A Saudi Logistics Company · شركة لوجستية سعودية</p><p>Riyadh · Jeddah · Dammam · www.aerocompass.com.sa</p></div></footer>
+<footer class="band"><div class="wrap"><p><b>AeroCompass Worldwide Freightlines</b> · A Saudi Logistics Company<span class="ar"> · شركة لوجستية سعودية</span></p><p>Riyadh · Jeddah · Dammam · www.aerocompass.com.sa</p></div></footer>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -319,12 +332,18 @@ const V=[
 ["Word & PowerPoint","Office apps",63,"Headings, Track Changes, Designer and export to PDF."],
 ["Forms & Planner","Office apps",63,"Customer feedback forms and team task boards."],
 ["Staying secure","Security",63,"Set up MFA, approve sign-ins, spot and report phishing."]];
-const START=[];let acc=0;for(const v of V){START.push(acc);acc+=v[2]}const TOTAL=acc;
+const VA=[["إنشاء فريق","تيمز"],["المكالمات","تيمز"],["الاجتماعات","تيمز"],["الدردشة والتعاون","تيمز"],["الملفات في تيمز","تيمز"],["أساسيات بريد أوتلوك","أوتلوك"],["تقويم أوتلوك","أوتلوك"],["ون درايف","الملفات والمواقع"],["شيربوينت","الملفات والمواقع"],["إكسل للخدمات اللوجستية","تطبيقات أوفيس"],["وورد وباوربوينت","تطبيقات أوفيس"],["فورمز وبلانر","تطبيقات أوفيس"],["البقاء آمناً","الأمان"]];
+const ARDUR=[73.5, 62.0, 66.3, 64.6, 55.0, 63.0, 63.0, 63.5, 63.2, 63.0, 63.0, 63.0, 63.0];
+const I18N={"Training Hub": "مركز التدريب", "Start": "البداية", "Full video": "الفيديو الكامل", "SOP video": "إجراءات الشحن", "Roles": "الأدوار", "Finance": "المالية", "About us": "من نحن", "Welcome aboard. Your training starts here.": "مرحباً بك في أيرو كومباس. رحلتك التدريبية تبدأ هنا.", "Learn the Microsoft 365 tools AeroCompass uses every day. Watch the full training video below (13 minutes 43 seconds), or jump to any chapter. English voice-over.": "تعلّم أدوات مايكروسوفت 365 التي نستخدمها يومياً في أيرو كومباس. شاهد فيديو التدريب الكامل أدناه، أو انتقل إلى أي فصل. تعليق صوتي باللغة العربية.", "Your browser cannot play this video.": "متصفحك لا يدعم تشغيل هذا الفيديو.", "Video not playing? Open this chapter directly": "الفيديو لا يعمل؟ افتح هذا الفصل مباشرة", "Video not playing? Open it directly": "الفيديو لا يعمل؟ افتحه مباشرة", "◀ Prev": "السابق ▶", "Next ▶": "◀ التالي", "Mark as watched": "تمت المشاهدة", "✓ Watched": "✓ تمت المشاهدة", "Chapters": "الفصول", "Freight Division SOP": "إجراءات التشغيل القياسية لقسم الشحن", "How every shipment is handled, from quotation to delivery: principles, the six stages, risk and insurance, emergencies and the escalation matrix. About 4 minutes, English voice-over.": "كيف نتعامل مع كل شحنة من عرض السعر حتى التسليم: المبادئ، والمراحل الست، والمخاطر والتأمين، والطوارئ، ومصفوفة التصعيد. تعليق صوتي باللغة العربية.", "General principles": "المبادئ العامة", "Pre-shipment and quoting": "ما قبل الشحن والتسعير", "Booking and documentation": "الحجز والمستندات", "Origin, main carriage and destination": "المنشأ والنقل الرئيسي والوجهة", "Post-shipment, risk and insurance": "ما بعد الشحن والمخاطر والتأمين", "Emergencies and escalation matrix": "الطوارئ ومصفوفة التصعيد", "HR & COMPANY POLICY": "الموارد البشرية وسياسات الشركة", "Employee Roles & Responsibilities": "أدوار ومسؤوليات الموظفين", "The new organisation structure: who reports to whom, what each role is responsible for, working hours, pricing rules, the RFQ timeline and role-adherence penalties. About 5 minutes, English voice-over.": "الهيكل التنظيمي الجديد: من يتبع من، ومسؤوليات كل دور، وساعات العمل، وقواعد التسعير، ومواعيد الرد على طلبات الأسعار، وجزاءات عدم الالتزام بالأدوار. تعليق صوتي باللغة العربية.", "Organisation chart and reporting lines": "الهيكل التنظيمي وخطوط التبعية", "Management, sales and operations roles": "أدوار الإدارة والمبيعات والعمليات", "Support teams and key dates": "فرق الدعم والتواريخ المهمة", "Working hours and Jibble attendance": "ساعات العمل والحضور عبر تطبيق جيبل", "Pricing rules and RFQ timeline": "قواعد التسعير ومواعيد الرد على طلبات الأسعار", "Role adherence and penalties": "الالتزام بالأدوار والجزاءات", "FINANCE & ACCOUNTS": "المالية والحسابات", "Accountant SOP": "إجراءات التشغيل القياسية للمحاسب", "How the Accountant manages payables, receivables, monthly expenses, payroll, daily collections and quote costing, plus the reporting line, escalation matrix and confidentiality rules (ACWF-FIN-SOP-01). About 3½ minutes, English voice-over.": "كيف يدير المحاسب الذمم الدائنة والمدينة، والمصروفات الشهرية، والرواتب، والتحصيل اليومي، وتكلفة عروض الأسعار، إضافة إلى جهة التبعية ومصفوفة التصعيد وقواعد السرية. تعليق صوتي باللغة العربية.", "Reporting line and direct escalation": "جهة التبعية والتصعيد المباشر", "Accounts payable and receivable": "الذمم الدائنة والمدينة", "Monthly expenses and payroll": "المصروفات الشهرية والرواتب", "Daily collection and ageing report": "التحصيل اليومي وتقرير أعمار الديون", "Quote cost calculation": "حساب تكلفة عرض السعر", "Escalation matrix and confidentiality": "مصفوفة التصعيد والسرية", "ABOUT THE COMPANY": "عن الشركة", "AeroCompass Worldwide Freightlines": "أيرو كومباس للشحن العالمي", "· A Saudi Logistics Company": "· شركة لوجستية سعودية", "A Saudi freight forwarding, warehousing and cargo logistics company with its head office in Riyadh and branches in Jeddah (Gulf Center) and Dammam. AeroCompass brings together the experience of its parent groups, Art Map Engineering Consultants, Flydana and WAJA, in one dedicated freight company that supports the goals of Saudi Vision 2030.": "شركة سعودية للشحن والتخزين والخدمات اللوجستية، مقرها الرئيسي في الرياض ولها فروع في جدة (مركز الخليج) والدمام. تجمع أيرو كومباس خبرات مجموعاتها الأم، آرت ماب للاستشارات الهندسية وفلاي دانة ووجا، في شركة شحن متخصصة تدعم أهداف رؤية السعودية 2030.", "We specialise in high-security, highly regulated and time-sensitive cargo, from everyday freight to defence logistics.": "نتخصص في الشحنات عالية الأمان والخاضعة للتنظيم الدقيق والحساسة للوقت، من الشحن اليومي إلى الخدمات اللوجستية الدفاعية.", "Offices: Riyadh, Jeddah, Dammam": "مكاتب: الرياض، جدة، الدمام", "Dedicated trailers and trucks": "مقطورات وشاحنات مخصصة", "Vehicle types, 3 to 60 tonnes": "أنواع مركبات، من 3 إلى 60 طناً", "Aligned with Saudi Vision": "متوافقة مع رؤية السعودية", "What we do": "ماذا نقدم", "Core services": "الخدمات الأساسية", "Air and sea freight forwarding, import and export": "الشحن الجوي والبحري، استيراداً وتصديراً", "Transshipment and cross-docking": "إعادة الشحن والمناولة المباشرة", "Customs clearance at all major Saudi ports and borders": "التخليص الجمركي في جميع الموانئ والمنافذ السعودية الرئيسية", "Warehousing and storage, dry and ambient": "التخزين الجاف وبدرجة الحرارة العادية", "Domestic and international land transport": "النقل البري المحلي والدولي", "Value-added services": "الخدمات ذات القيمة المضافة", "SABER certificate facilitation": "تسهيل شهادات منصة سابر", "Marine and cargo insurance": "التأمين البحري وتأمين البضائع", "Professional packaging and crating": "التغليف والتصنيد الاحترافي", "AeroCompass Industrial Logistics": "أيرو كومباس للخدمات اللوجستية الصناعية", "Our industrial and project division: project and heavy cargo, out-of-gauge (OOG) transport, container stuffing and lashing, warehousing and 3PL, terminal services, and industrial packing, for forwarders, EPC contractors and industrial customers across the Kingdom.": "قسمنا الصناعي والمشاريع: شحنات المشاريع والبضائع الثقيلة، ونقل الشحنات خارج المقاسات، وتعبئة الحاويات وتثبيتها، والتخزين والخدمات اللوجستية للطرف الثالث، وخدمات المحطات، والتغليف الصناعي، لشركات الشحن ومقاولي المشاريع والعملاء الصناعيين في أنحاء المملكة.", "What sets us apart": "ما يميزنا", "Nationwide warehousing": "مستودعات في جميع أنحاء المملكة", "Secure warehouses being expanded across all regions of the Kingdom.": "مستودعات آمنة نتوسع بها في جميع مناطق المملكة.", "Defence & ITAR compliance": "الالتزام بمعايير الدفاع ولوائح ITAR", "Full ITAR compliance and close alignment with the Ministry of Defense for sensitive materials.": "التزام كامل بلوائح ITAR وتنسيق وثيق مع وزارة الدفاع للمواد الحساسة.", "IP protection": "حماية الملكية الفكرية", "Restricted-access workflows that protect clients' intellectual property and sensitive data.": "إجراءات عمل مقيّدة الوصول تحمي الملكية الفكرية والبيانات الحساسة لعملائنا.", "Our own cargo airline": "شركة طيران شحن خاصة بنا", "Working toward a dedicated cargo airline for faster, independent capacity.": "نعمل على إطلاق شركة طيران شحن مخصصة لسعة أسرع ومستقلة.", "How we work": "كيف نعمل", "Assess": "التقييم", "Requirements, scope and risks": "المتطلبات والنطاق والمخاطر", "Plan": "التخطيط", "Practical, commercially viable solutions": "حلول عملية ومجدية تجارياً", "Prepare": "التحضير", "Resources, permits and readiness": "الموارد والتصاريح والجاهزية", "Execute": "التنفيذ", "Coordinate and control operations": "تنسيق العمليات وضبطها", "Monitor": "المتابعة", "Track progress and communicate": "متابعة التقدم والتواصل", "Close": "الإغلاق", "Delivery, documents and commercial closure": "التسليم والمستندات والإغلاق التجاري", "Our commitment:": "التزامنا:", "safe, reliable and professionally coordinated logistics through careful planning, transparent communication and accountability at every stage.": "خدمات لوجستية آمنة وموثوقة ومنسقة باحترافية، من خلال التخطيط الدقيق والتواصل الشفاف والمساءلة في كل مرحلة.", "Leadership": "القيادة", "Eng. Maqubul Al Shallwi": "م. مقبول الشلوي", "Chairman & Founder": "رئيس مجلس الإدارة والمؤسس", "Saudi entrepreneur with an engineering background from King Saud University, leading the company's strategic growth.": "رائد أعمال سعودي بخلفية هندسية من جامعة الملك سعود، يقود النمو الاستراتيجي للشركة.", "Mr. Shamjad Shamsudeen": "أ. شمجاد شمس الدين", "Chief Executive Officer": "الرئيس التنفيذي", "Over 14 years of logistics experience in Saudi Arabia, including leading cargo sales for major airlines.": "أكثر من 14 عاماً من الخبرة اللوجستية في المملكة، منها قيادة مبيعات الشحن لدى شركات طيران كبرى.", "Mr. Aflak Ahmed": "أ. أفلاك أحمد", "Chief Operating Officer": "الرئيس التنفيذي للعمليات", "More than 20 years in freight forwarding, project cargo and event logistics.": "أكثر من 20 عاماً في الشحن وشحنات المشاريع ولوجستيات الفعاليات.", "Network & partners": "الشبكة والشركاء", "Trusted by clients including Shaker Group, Ta'aheel, Sinotruk, Bin Shihon Trading, WAJA and AJEX Logistic Services.": "يثق بنا عملاء منهم مجموعة شاكر، وتأهيل، وسينوتراك، وبن شيهون للتجارة، ووجا، وأجكس للخدمات اللوجستية.", "Memberships": "العضويات", "JCtrans Premium Member, FIATA Individual Member, affiliated with TGA (Transport General Authority), and IATA CASS Associated Member.": "عضو مميز في JCtrans، وعضو فردي في FIATA، ومنتسب إلى الهيئة العامة للنقل، وعضو مشارك في IATA CASS.", "Air freight partners": "شركاء الشحن الجوي", "Ocean freight partners": "شركاء الشحن البحري", "Website": "الموقع الإلكتروني", "Riyadh · Jeddah · Dammam · www.aerocompass.com.sa": "الرياض · جدة · الدمام · www.aerocompass.com.sa", "Air Algérie, Air China, Hainan Airlines, China Eastern, Himalaya Airlines, AirAsia and PIA.": "الخطوط الجوية الجزائرية، وطيران الصين، وخطوط هاينان، وطيران الصين الشرقية، وخطوط هيمالايا، وطيران آسيا، والخطوط الجوية الباكستانية.", "Bahri, Hapag-Lloyd, MSC, COSCO, ONE, Maersk and OOCL.": "البحري، وهاباغ لويد، وإم إس سي، وكوسكو، وأوشن نتورك إكسبرس، وميرسك، وأو أو سي إل."};
+let LANG='en';try{const q=new URLSearchParams(location.search).get('lang');LANG=(q==='ar'||q==='en')?q:(localStorage.getItem('acLang')||'en')}catch(e){}
+const T=s=>LANG==='ar'&&I18N[s]?I18N[s]:s;
+const TI=i=>LANG==='ar'?VA[i][0]:V[i][0];const TG=i=>LANG==='ar'?VA[i][1]:V[i][1];
+let START=[],TOTAL=0;function recompute(){START=[];let a=0;V.forEach((v,i)=>{START.push(a);a+=(LANG==='ar'?ARDUR[i]:v[2])});TOTAL=a}recompute();
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const $=id=>document.getElementById(id);
 const MOB=(()=>{try{return matchMedia('(max-width: 900px)').matches||/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)}catch(e){return false}})();const SFX='_m';
-const vurl=n=>''+n+SFX+'.mp4';
-document.querySelectorAll('video source').forEach(so=>{const m=so.getAttribute('src').match(/^(\w+?)(?:_m)?\.mp4$/);if(m&&SFX){so.src=vurl(m[1]);so.parentElement.load()}});
+const vurl=n=>''+n+(LANG==='ar'?'_ar':SFX)+'.mp4';
+document.querySelectorAll('video source').forEach(so=>{const m=so.getAttribute('src').match(/^(\w+?)(?:_m|_ar)?\.mp4$/);if(m&&SFX){so.src=vurl(m[1]);so.parentElement.load()}});
 document.querySelectorAll('a[data-v]').forEach(a=>a.href=vurl(a.dataset.v));
 const UA=navigator.userAgent;const BLOB=/claudeusercontent|claude\.ai/.test(location.hostname)&&(/iPhone|iPad|iPod/.test(UA)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)||(/Safari/.test(UA)&&!/Chrome|Chromium|Android|Edg|OPR/.test(UA)));
 const bc={};function blobUrl(u){if(!bc[u])bc[u]=fetch(u).then(r=>{if(!r.ok)throw new Error(r.status);return r.blob()}).then(b=>URL.createObjectURL(new Blob([b],{type:'video/mp4'}))).catch(e=>{delete bc[u];throw e});return bc[u]}
@@ -342,26 +361,37 @@ let watched=new Set(),cur=0,group='All',pendingSeek=0,wantPlay=false;
 try{JSON.parse(localStorage.getItem('acWatched')||'[]').forEach(x=>watched.add(x))}catch(e){}
 const save=()=>{try{localStorage.setItem('acWatched',JSON.stringify([...watched]))}catch(e){}};
 const toast=m=>{const t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1800)};
-function prog(){const n=watched.size;$('barFill').style.width=(n/13*100)+'%';$('progTxt').textContent=n+' of 13 watched';const d=watched.has(cur);$('doneBtn').textContent=d?'✓ Watched':'Mark as watched';$('doneBtn').className='btn '+(d?'done':'red')}
-function chapters(){$('chap').innerHTML=V.map((v,i)=>`<button class="ch${i===cur?' on':''}" data-i="${i}"><span class="tm">${mmss(START[i])}</span><span>${i+1}. ${esc(v[0])}</span><span class="w">${watched.has(i)?'✓':''}</span></button>`).join('')}
-function marks(){$('tl').insertAdjacentHTML('beforeend',START.slice(1).map(s=>`<i class="mk" style="left:${s/TOTAL*100}%"></i>`).join(''))}
+function prog(){const n=watched.size;$('barFill').style.width=(n/13*100)+'%';$('progTxt').textContent=LANG==='ar'?('تمت مشاهدة '+n+' من 13'):(n+' of 13 watched');const d=watched.has(cur);$('doneBtn').textContent=T(d?'✓ Watched':'Mark as watched');$('doneBtn').className='btn '+(d?'done':'red')}
+function chapters(){$('chap').innerHTML=V.map((v,i)=>`<button class="ch${i===cur?' on':''}" data-i="${i}"><span class="tm">${mmss(START[i])}</span><span>${i+1}. ${esc(TI(i))}</span><span class="w">${watched.has(i)?'✓':''}</span></button>`).join('')}
+function marks(){$('tl').querySelectorAll('.mk').forEach(x=>x.remove());$('tl').insertAdjacentHTML('beforeend',START.slice(1).map(s=>`<i class="mk" style="left:${s/TOTAL*100}%"></i>`).join(''))}
 function load(i,offset,play){cur=(i+13)%13;pendingSeek=offset||0;wantPlay=!!play;const v=V[cur];
 if(BLOB){useBlob(vid,vurl('v'+pad(cur+1)))}else{$('vsrc').src=vurl('v'+pad(cur+1));}$('vdirect').href=vurl('v'+pad(cur+1));vid.poster='p'+pad(cur+1)+'.jpg';if(!BLOB)vid.load();
-$('nowNo').textContent='Chapter '+(cur+1)+' of 13 · '+v[1];$('nowTitle').textContent=v[0];prog();chapters();tick()}
+$('nowNo').textContent=(LANG==='ar'?('الفصل '+(cur+1)+' من 13 · '):('Chapter '+(cur+1)+' of 13 · '))+TG(cur);$('nowTitle').textContent=TI(cur);prog();chapters();tick()}
 vid.addEventListener('loadedmetadata',()=>{if(pendingSeek>0){try{vid.currentTime=Math.min(pendingSeek,vid.duration-0.2)}catch(e){}}pendingSeek=0;if(wantPlay){const p=vid.play();if(p&&p.catch)p.catch(()=>{})}wantPlay=false});
 function tick(){const t=START[cur]+(vid.currentTime||0);$('tlFill').style.width=(t/TOTAL*100)+'%';$('tlNow').textContent=mmss(t);$('tl').setAttribute('aria-valuenow',Math.floor(t))}
 vid.addEventListener('timeupdate',tick);
-vid.addEventListener('ended',()=>{if(!watched.has(cur)){watched.add(cur);save();lib()}if(cur<12)load(cur+1,0,true);else{prog();chapters();toast(watched.size===13?'All 13 chapters watched. Well done!':'End of the training video')}});
+vid.addEventListener('ended',()=>{if(!watched.has(cur)){watched.add(cur);save();lib()}if(cur<12)load(cur+1,0,true);else{prog();chapters();toast(LANG==='ar'?(watched.size===13?'أحسنت! شاهدت جميع الفصول الـ13':'نهاية فيديو التدريب'):(watched.size===13?'All 13 chapters watched. Well done!':'End of the training video'))}});
 function seekTotal(t){t=Math.max(0,Math.min(TOTAL-0.5,t));let i=0;while(i<12&&t>=START[i+1])i++;const off=t-START[i];const playing=!vid.paused;if(i===cur){try{vid.currentTime=off}catch(e){}tick()}else load(i,off,playing)}
 const tl=$('tl');
 tl.addEventListener('pointerdown',e=>{const r=tl.getBoundingClientRect();seekTotal((e.clientX-r.left)/r.width*TOTAL)});
 tl.addEventListener('keydown',e=>{const t=START[cur]+(vid.currentTime||0);if(e.key==='ArrowRight'){seekTotal(t+10);e.preventDefault()}if(e.key==='ArrowLeft'){seekTotal(t-10);e.preventDefault()}});
 $('chap').addEventListener('click',e=>{const b=e.target.closest('.ch');if(b)load(+b.dataset.i,0,true)});
 $('prevBtn').onclick=()=>load(cur-1,0,true);$('nextBtn').onclick=()=>load(cur+1,0,true);
-$('doneBtn').onclick=()=>{if(watched.has(cur))watched.delete(cur);else{watched.add(cur);toast('Chapter '+(cur+1)+' marked as watched')}save();prog();chapters();lib()};
+$('doneBtn').onclick=()=>{if(watched.has(cur))watched.delete(cur);else{watched.add(cur);toast(LANG==='ar'?('تم تسجيل مشاهدة الفصل '+(cur+1)):('Chapter '+(cur+1)+' marked as watched'))}save();prog();chapters();lib()};
 const groups=['All',...new Set(V.map(v=>v[1]))];
 function lib(){}
-marks();chapters();lib();prog();tick();
+const TN=[];{const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const k=n.nodeValue.trim();if(k&&I18N[k]&&!n.parentElement.closest('#chap,#nowNo,#nowTitle,#progTxt,#doneBtn,script'))TN.push([n,n.nodeValue,k])}}
+function totLabel(){$('tlTot').textContent=(LANG==='ar'?'فيديو التدريب الكامل · ':'Full training video · ')+mmss(TOTAL);$('tl').setAttribute('aria-valuemax',Math.round(TOTAL))}
+function applyLang(first){const ar=LANG==='ar';document.documentElement.lang=ar?'ar':'en';document.documentElement.dir=ar?'rtl':'ltr';
+TN.forEach(([n,orig,k])=>{n.nodeValue=ar?orig.replace(k,I18N[k]):orig});
+const b=$('langBtn');b.textContent=ar?'English':'العربية';b.lang=ar?'en':'ar';document.title=ar?'مركز تدريب أيرو كومباس':'AeroCompass Training Hub';
+recompute();marks();totLabel();
+document.querySelectorAll('section video').forEach(v=>{if(v.id==='vid')return;const so=v.querySelector('source');if(!so)return;const m=so.getAttribute('src').match(/^(\w+?)(?:_m|_ar)?\.mp4$/);if(m){so.setAttribute('src',vurl(m[1]));if(!first)v.load()}});
+document.querySelectorAll('a[data-v]').forEach(a=>a.href=a.id==='vdirect'?vurl('v'+pad(cur+1)):vurl(a.dataset.v));
+if(first){if(ar){$('vsrc').setAttribute('src',vurl('v01'));vid.load()}}else load(cur,0,false);
+$('nowNo').textContent=(LANG==='ar'?('الفصل '+(cur+1)+' من 13 · '):('Chapter '+(cur+1)+' of 13 · '))+TG(cur);$('nowTitle').textContent=TI(cur);chapters();prog();tick()}
+$('langBtn').onclick=()=>{LANG=LANG==='ar'?'en':'ar';try{localStorage.setItem('acLang',LANG)}catch(e){}applyLang(false)};
+applyLang(true);lib();
 }
 </script>
 </body>
